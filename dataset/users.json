@@ -1,0 +1,5 @@
+{"_id":{"$oid":"62cd65afd0953f4adef923b3"},"name":"Zulema","email":"zule@mail.com","password":"1234545","avatar":"https://api.lorem.space/image/face?w=480&h=480&r=9297","__v":0}
+{"_id":{"$oid":"62cd65bad0953f4adef923b5"},"name":"Nancy","email":"nancy@mail.com","password":"1234545","avatar":"https://api.lorem.space/image/face?w=480&h=480&r=9297","__v":0}
+{"_id":{"$oid":"62cd65a8d0953f4adef923b1"},"name":"Nicolas","email":"nico@mail.com","password":"1234545","avatar":"https://api.lorem.space/image/face?w=480&h=480&r=9297","__v":0}
+{"_id":{"$oid":"62cd65c4d0953f4adef923b7"},"name":"Valentina","email":"vale@mail.com","password":"1234545","avatar":"https://api.lorem.space/image/face?w=480&h=480&r=9297","__v":0}
+{"_id":{"$oid":"62cd65c9d0953f4adef923b9"},"name":"Andrea","email":"andre@mail.com","password":"1234545","avatar":"https://api.lorem.space/image/face?w=480&h=480&r=9297","__v":0}

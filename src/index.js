@@ -22,3 +22,5 @@ app.use(errorHandler);
 app.listen(port, () => {
   console.log('Starting in port:' +  port);
 });
+
+module.exports = app;

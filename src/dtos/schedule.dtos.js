@@ -1,12 +1,30 @@
 const Joi = require('joi');
 
+const intervalDto = Joi.object({
+  startTime: Joi.string().required(),
+  endTime: Joi.string().required(),
+});
+
+const availabilityDto = Joi.object({
+  day: Joi.string().valid(
+    'sunday',
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday'
+  ),
+  intervals: Joi.array().items(intervalDto),
+});
+
 const id = Joi.string();
-const title = Joi.string().min(3).max(15);
+const title = Joi.string().min(3).max(50);
 const description = Joi.string().min(20);
 const duration = Joi.number().min(0);
 const margin = Joi.number().min(0);
 const timezone = Joi.string();
-const availability = Joi.array();
+const availability = Joi.array().items(availabilityDto);
 const userId = Joi.string();
 
 const createScheduleDto = Joi.object({
