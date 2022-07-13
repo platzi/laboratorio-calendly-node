@@ -47,6 +47,6 @@ const scheduleSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
 });
 
-const User = mongoose.model('Schedules', scheduleSchema);
+const Schedule = mongoose.model('Schedules', scheduleSchema);
 
-module.exports = User;
+module.exports = Schedule;

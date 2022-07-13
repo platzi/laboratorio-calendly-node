@@ -1,4 +1,4 @@
-const Appointment = require('../entities/appointment.entity');
+const Appointment = require('./../database/entities/appointment.entity');
 
 class AppointmentService {
   create(dto) {

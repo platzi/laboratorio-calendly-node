@@ -1,4 +1,4 @@
-const Schedule = require('../entities/schedule.entity');
+const Schedule = require('./../database/entities/schedule.entity');
 
 class ScheduleService {
   create(dto) {

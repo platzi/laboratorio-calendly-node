@@ -1,4 +1,4 @@
-const User = require('./../entities/user.entity');
+const User = require('./../database/entities/user.entity');
 
 class UserService {
   create(data) {
