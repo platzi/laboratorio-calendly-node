@@ -12,6 +12,7 @@ const formatSlot = (slot) => {
 };
 
 // TODO: E2E DTOS 400 bad request
+// TODO: schedule not found
 
 describe('Check slots with the same timezone', () => {
   const app = createApp();
@@ -46,6 +47,16 @@ describe('Check slots with the same timezone', () => {
           date: '2022-07-18',
           timezone: 'bla',
           scheduleId: '12345',
+        });
+      expect(statusCode).toEqual(404);
+    });
+    test('should return a 404 with invalid scheduleId', async () => {
+      const { statusCode } = await api
+        .post('/api/v1/availability')
+        .send({
+          date: '2022-07-18',
+          timezone: 'America/Mexico_City',
+          scheduleId: '1',
         });
       expect(statusCode).toEqual(404);
     });

@@ -1,4 +1,6 @@
 const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
+const { listTimeZones } = require('timezone-support');
 
 const intervalDto = Joi.object({
   startTime: Joi.string().required(),
@@ -18,14 +20,14 @@ const availabilityDto = Joi.object({
   intervals: Joi.array().items(intervalDto),
 });
 
-const id = Joi.string();
+const id = Joi.objectId();
 const title = Joi.string().min(3).max(50);
 const description = Joi.string().min(20);
 const duration = Joi.number().min(0);
 const margin = Joi.number().min(0);
-const timezone = Joi.string();
+const timezone = Joi.string().valid(...listTimeZones());
 const availability = Joi.array().items(availabilityDto);
-const userId = Joi.string();
+const userId = Joi.objectId();
 
 const createScheduleDto = Joi.object({
   title: title.required(),

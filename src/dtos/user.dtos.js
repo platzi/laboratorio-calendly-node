@@ -1,6 +1,7 @@
 const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
 
-const id = Joi.string();
+const id = Joi.objectId();
 const name = Joi.string().min(3).max(15);
 const email = Joi.string().email();
 const avatar = Joi.string().uri();
