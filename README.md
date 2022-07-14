@@ -65,7 +65,7 @@ Este endpoint debería retornar los espacios disponibles según un  **Schedule**
 
 [POST] /schedules/check
 
-Por ejemplo, así se vería el **Schedule** de un usuario con espacios de 20 min **(duration)** con espacio entre reunión a reunión de  5 min **(margin)** con disponibilidad de la siguiente manera:
+Por ejemplo, así se vería el **Schedule** de un usuario con espacios de 15 min **(duration)** y con espacio entre reunión a reunión de  5 min **(margin)** con disponibilidad de la siguiente manera:
 
 - Los lunes de 9 am a 10:15 am y de 8 pm a 9 pm
 - Los viernes un espacio entre 1 pm a 2 pm
