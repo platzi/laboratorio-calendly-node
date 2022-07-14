@@ -1,10 +1,11 @@
 const boom = require('@hapi/boom');
 const { addMinutes, isBefore, isEqual, format, parse } = require('date-fns');
+const { utcToZonedTime, format: formatTz  } = require("date-fns-tz");
 
 const Schedule = require('./../database/entities/schedule.entity');
 
 class AvailabilityService {
-  async check({ scheduleId, date }) {
+  async check({ scheduleId, date, timezone }) {
     const schedule = await Schedule.findById(scheduleId);
     if (!schedule) {
       throw boom.notFound('schedule not found');
@@ -15,12 +16,16 @@ class AvailabilityService {
       return [];
     }
     const promises = availability.intervals.map(async (interval) => {
-      const startDate = this.createDate(date, interval.startTime);
-      const endDate = this.createDate(date, interval.endTime);
+      const startDate = this.createDateWithScheduleTZ(date, interval.startTime, schedule.timezone);
+      const endDate = this.createDateWithScheduleTZ(date, interval.endTime, schedule.timezone);
       return this.generateSlots(startDate, endDate, schedule.duration, schedule.margin);
     });
     const response = await Promise.all(promises);
-    return response.flat();
+    return response.flat().map(item => ({
+      ...item,
+      start: this.createDateWithUserTZ(item.start, timezone),
+      end: this.createDateWithUserTZ(item.end, timezone),
+    }));
   }
 
   getDay(date) {
@@ -31,10 +36,18 @@ class AvailabilityService {
     return availability.find(item => item.day === day);
   }
 
-  createDate(date, slotTime) {
-    const [year, month, day] = date.split('-').map(item => parseInt(item));
-    const [hour , minutes] = slotTime.split(':').map(item => parseInt(item));
-    return new Date(year, month - 1, day, hour, minutes, 0);
+  createDateWithScheduleTZ(dateStr, slotTime, scheduleTZ) {
+    const date = new Date(dateStr);
+    const formatDate = format(date, 'eee LLL dd yyyy');
+    const dateUTC = utcToZonedTime(new Date(), scheduleTZ);
+    const scheduleTZName = formatTz(dateUTC, 'OOOO', { timeZone: scheduleTZ });
+    return new Date(`${formatDate} ${slotTime}:00 ${scheduleTZName}`)
+  }
+
+  createDateWithUserTZ(dateStr, userTZ) {
+    const date = new Date(dateStr);
+    const zonedTime = utcToZonedTime(date, userTZ);
+    return formatTz(zonedTime, 'eee LLL dd yyyy HH:mm:ss OOOO', {timeZone: userTZ});
   }
 
   generateSlots(startDate, endDate, duration, margin) {
