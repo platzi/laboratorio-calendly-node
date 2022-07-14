@@ -14,11 +14,17 @@ En este proyecto debes incluir un nuevo endpoint que genere los espacios disponi
 1. Hacer fork de este proyecto en tu espacio personal
 1. Clonar el repositorio desde tu espacio personal en tu computadora
 1. Instalar dependencias, con el comando `npm install`
-1. TODO: crear los archivos .env
 1. Iniciar mongo con Docker, con el comando `docker-compose up mongo -d`
 1. Cargar datos iniciales, con el comando `npm run seed:init`
 1. Comprobar ambiente de desarrollo, con el comando `npm run dev`
 1. Probar endpoints con Postman o Insomnia.
+
+---
+
+### Pruebas
+
+1. Iniciar mongo con Docker, con el comando `docker-compose up mongo-e2e -d`
+1. Cargar datos iniciales, con el comando `npm run e2e`
 
 ## Configuración
 
@@ -259,9 +265,9 @@ Ejemplo:
 ]
 ```
 
-### 3 TODO VALIDATE DTOS
+### 2. Validación de datos
 
-### 2. Soporte de Timezones
+### 3. Soporte de Timezones
 
 Llego la hora de ser una empresa global y soportar [Timezones](https://www.monkeyuser.com/assets/images/2018/85-going-global.png), TODO: endpoint list
 
@@ -291,7 +297,7 @@ Recuerda que en body del endpoint te envían el timezone del usuario:
 }
 ```
 
-### 3. Validar espacios ya ocupados
+### 4. Validar espacios ya ocupados
 
 En endpoint debería mostrar el `off` los espacios que no estan disponibles, por ende debería hacerse un consulta de los **Appointments** para ver si un espacio ya esta ocupado, en caso de estar ocupado debería retonar el status como `off`.
 
@@ -338,9 +344,6 @@ Para interactuar con la API puedes descargar el archivo de Postman o Insomnia.
 - El comando `npm run e2e` se corren pruebas e2e para verificiar el correcto funcionamiento de los endpoints
 - El comando `npm run seed:init` corre un carga de datos inicial
 
-### Pruebas
-
-#TODO: docker-compose up mongo-e2e -d 
 
 ## Como enviar tu solución
 

@@ -18,9 +18,6 @@ const formatSlot = (slot, userTZ) => {
   return `${hourStartTime}-${hourEndTime}`;
 };
 
-// TODO: schedule not found
-// TODO: return [] when date is not in availi..
-
 describe('Tests for availability', () => {
   const app = createApp();
   const server = app.listen(8000);
