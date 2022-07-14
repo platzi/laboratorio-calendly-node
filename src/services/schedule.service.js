@@ -18,7 +18,7 @@ class ScheduleService {
   }
 
   getById(id) {
-    return Schedule.findById(id);
+    return Schedule.findById(id).populate('user');
   }
 
   update(id, changes) {
