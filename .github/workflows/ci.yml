@@ -1,0 +1,37 @@
+name: API CI
+
+on:
+  push:
+    branches: ["*"]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    container:
+      image: node:16
+
+    services:
+      mongo-e2e:
+        image: mongo:4.4
+        ports:
+          - 27018:27017
+        env:
+          MONGO_INITDB_ROOT_USERNAME: root
+          MONGO_INITDB_ROOT_PASSWORD: root
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: install
+        run: npm ci
+      - name: run e2e
+        run: npm run e2e
+        env:
+          MONGO_USER: root
+          MONGO_PASSWORD: root
+          MONGO_DB: calendly
+          MONGO_HOST: mongo-e2e
+          MONGO_PORT: 27018
+          NODE_ENV: 'e2e'
