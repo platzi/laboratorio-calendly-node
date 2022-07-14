@@ -19,7 +19,8 @@ class AvailabilityService {
       const endDate = this.createDate(date, interval.endTime);
       return this.generateSlots(startDate, endDate, schedule.duration, schedule.margin);
     });
-    return Promise.all(promises);
+    const response = await Promise.all(promises);
+    return response.flat();
   }
 
   getDay(date) {
