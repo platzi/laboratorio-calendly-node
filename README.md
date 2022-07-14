@@ -7,7 +7,6 @@ En este proyecto debes incluir un nuevo endpoint que genere los espacios disponi
 - [El reto](#el-reto)
 - [Como enviar tu solución](#como-enviar-tu-solución)
 - [Licencia](#licencia)
-- [Credits](#credits)
 
 Vas a crear el Backend de una app de gestionar de calendarios como esta:
 
@@ -365,6 +364,3 @@ Debes de hacer un "Fork" de este proyecto, revolver los problemas y crear un Pul
 
 Este proyecto se lanza bajo la licencia [MIT](https://opensource.org/licenses/MIT).
 
-## Credits
-
-- [Freebie: Oasis](https://tympanus.net/codrops/2018/04/20/freebie-oasis-jekyll-website-template/)
