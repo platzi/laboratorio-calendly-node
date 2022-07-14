@@ -57,13 +57,15 @@ Debería existir tres entidades:
 
 ## Funcionalidades
 
-La aplicacion ya cuenta con endpoints para gestionar **Schedules** y **Users**, tu trabajo es crear los endpoints que cumplan los siguientes requerimientos.
+La aplicación ya cuenta con endpoints para gestionar **Schedules** y **Users**, tu trabajo es crear los endpoints que cumplan los siguientes requerimientos.
+
+Tu tarea será desarrollar un nuevo endpoint que debería retornar los espacios disponibles según un  **Schedule**.
+ 
+`[POST] /schedules/check`
+
+Debe cumplir los siguientes requisitos:
 
 ### 1. Generar los espacios disponibles dado un Schedule
-
-Este endpoint debería retornar los espacios disponibles según un  **Schedule**.
-
-[POST] /schedules/check
 
 Por ejemplo, así se vería el **Schedule** de un usuario con espacios de 15 min **(duration)** y con espacio entre reunión a reunión de  5 min **(margin)** con disponibilidad de la siguiente manera:
 
@@ -131,7 +133,7 @@ Este endpoint debe recibir los siguientes paramentros de entrada:
 
 - date: string
 - scheduleId: string
-- timezone: string
+- timezone: string 👈 este corresponde al timezone del usuario
 
 Ejemplo:
 
@@ -189,23 +191,23 @@ Llego la hora de ser una empresa global y soportar Timezones.
 
 ![meme](https://www.monkeyuser.com/assets/images/2018/85-going-global.png)
 
-Otro punto muy importante es el soporte de difentes zonas horarias(https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), el sistema debe soportar que cada **Schedule** tenga un timezone configurado y que si el usuario hace la solictud desde otra zona horaría el sistema "traducir" los espacios a la timezone del usuarios. Ejemplo:
+Otro punto muy importante es el soporte de diferentes [timezones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), el sistema debe soportar que cada **Schedule** tenga un timezone configurado y que si el usuario hace la solicitud desde otra timezone el sistema "traducir" los espacios a la timezone del usuario, por ejemplo:
 
-Para un **Schedule** con disponibilidad lunes de 9 am a 10:15 am, con duration de 15min y margin de 5min con timezone `America/La_Paz`, de debería responder la siguiente disponibilidad:
+Para un **Schedule** con disponibilidad lunes de 9 am a 10:15 am, con duration de 15min y margin de 5min con timezone `America/La_Paz`, se debería responder la siguiente disponibilidad:
 
 - 09:00 AM - 09:15 AM
 - 09:20 AM - 09:35 AM
 - 09:40 AM - 09:55 AM
 - 10:00 AM - 10:15 AM
 
-Pero si el usuario desde donde se envio el request tiene un timezone por ejemplo de `America/Bogota`, de debería responder la siguiente disponibilidad:
+Pero si el usuario desde donde se envio el request tiene un timezone por ejemplo de `America/Bogota`, se debería responder la siguiente disponibilidad:
 
 - 08:00 AM - 08:15 AM
 - 08:20 AM - 08:35 AM
 - 08:40 AM - 08:55 AM
 - 09:00 AM - 09:15 AM
 
-Recuerda que en body del endpoint te envian el timezone del usuario:
+Recuerda que en body del endpoint te envían el timezone del usuario:
 
 ```json
 {
@@ -213,7 +215,7 @@ Recuerda que en body del endpoint te envian el timezone del usuario:
   "scheduleId": "62cd6b95f852bc242a318cbb",
   "timezone": "America/Bogota" 👈
 }
-
+```
 
 ### 3. Validar espacios ya ocupados
 
