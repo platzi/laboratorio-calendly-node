@@ -1,11 +1,11 @@
 const env = process.env.NODE_ENV || 'dev';
 const envs = {
-  'dev': '.env',
+  'dev': 'dev.env',
   'e2e': 'e2e.env'
 }
 
 require('dotenv').config({
-  path: envs[env] ?? '.env'
+  path: envs[env] ?? 'dev.env'
 });
 
 const config = {
