@@ -27,7 +27,7 @@ jobs:
       - name: install
         run: npm ci
       - name: run e2e
-        run: npm run e2e
+        run: npm run e2e:ci
         env:
           MONGO_USER: root
           MONGO_PASSWORD: root

@@ -8,6 +8,7 @@
     "start": "node src/index.js",
     "seed:init": "node scripts/init-data.js",
     "e2e": "NODE_ENV=e2e jest --verbose --runInBand --forceExit",
+    "e2e:ci": "NODE_ENV=ci jest --verbose --runInBand --forceExit",
     "lint": "eslint"
   },
   "keywords": [],
