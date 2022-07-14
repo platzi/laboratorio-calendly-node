@@ -9,6 +9,10 @@ En este proyecto debes incluir un nuevo endpoint que genere los espacios disponi
 - [Licencia](#licencia)
 - [Credits](#credits)
 
+Vas a crear el Backend de una app de gestionar de calendarios como esta:
+
+![App](https://i.imgur.com/xVHNwGc.png)
+
 ## Instalación
 
 1. Hacer fork de este proyecto en tu espacio personal
@@ -342,6 +346,8 @@ Ejemplo:
 ### Recursos
 
 Para interactuar con la API puedes descargar el archivo de Postman o Insomnia.
+
+![Insomnia](https://i.imgur.com/a6tjnhK.png)
 
 ### Scripts
 
