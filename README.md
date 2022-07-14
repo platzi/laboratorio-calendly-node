@@ -187,9 +187,7 @@ Ejemplo:
 
 ### 2. Soporte de Timezones
 
-Llego la hora de ser una empresa global y soportar Timezones.
-
-![meme](https://www.monkeyuser.com/assets/images/2018/85-going-global.png)
+Llego la hora de ser una empresa global y soportar [Timezones](https://www.monkeyuser.com/assets/images/2018/85-going-global.png)
 
 Otro punto muy importante es el soporte de diferentes [timezones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), el sistema debe soportar que cada **Schedule** tenga un timezone configurado y que si el usuario hace la solicitud desde otra timezone el sistema "traducir" los espacios a la timezone del usuario, por ejemplo:
 
