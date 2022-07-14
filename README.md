@@ -138,7 +138,7 @@ Debería existir tres entidades:
 
 ## El reto
 
-La aplicación ya cuenta con endpoints para gestionar **Schedules**, **Users** y **Appointments**, tu reto es crear el endpoint `[POST] /schedules/check` que debería retornar los espacios disponibles según un  **Schedule**, debe cumplir los siguientes requisitos:
+La aplicación ya cuenta con endpoints para gestionar **Schedules**, **Users** y **Appointments**, tu reto es crear el endpoint `[POST] /check-availability` que debería retornar los espacios disponibles según un  **Schedule**, debe cumplir los siguientes requisitos:
 
 ### 1. Generar los espacios disponibles dado un Schedule
 
@@ -206,7 +206,7 @@ El documento del **Schedule** anterior sería así:
 
 Este endpoint debe recibir los siguientes paramentros de entrada:
 
-- date: string => La fecha para la cual se quiere revisar disponibilidad
+- date: string => La fecha para la cual se quiere revisar disponibilidad, el formato de la fecha debería ser `yyyy-MM-dd`
 - scheduleId: string => El id del **Schedule**
 - timezone: string => El timezone del usuario
 
