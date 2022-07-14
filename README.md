@@ -125,7 +125,6 @@ El documento del **Schedule** anterior sería algo así:
 },
 ```
 
-
 #### Input
 
 Este endpoint debe recibir los siguientes paramentros de entrada:
@@ -184,7 +183,39 @@ Ejemplo:
 ]
 ´´´
 
-### 2. Validar espacios ya ocupados
+### 2. Soporte de Timezones
+
+Llego la hora de ser una empresa global y soportar Timezones.
+
+![meme](https://www.monkeyuser.com/assets/images/2018/85-going-global.png)
+
+Otro punto muy importante es el soporte de difentes zonas horarias(https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), el sistema debe soportar que cada **Schedule** tenga un timezone configurado y que si el usuario hace la solictud desde otra zona horaría el sistema "traducir" los espacios a la timezone del usuarios. Ejemplo:
+
+Para un **Schedule** con disponibilidad lunes de 9 am a 10:15 am, con duration de 15min y margin de 5min con timezone `America/La_Paz`, de debería responder la siguiente disponibilidad:
+
+- 09:00 AM - 09:15 AM
+- 09:20 AM - 09:35 AM
+- 09:40 AM - 09:55 AM
+- 10:00 AM - 10:15 AM
+
+Pero si el usuario desde donde se envio el request tiene un timezone por ejemplo de `America/Bogota`, de debería responder la siguiente disponibilidad:
+
+- 08:00 AM - 08:15 AM
+- 08:20 AM - 08:35 AM
+- 08:40 AM - 08:55 AM
+- 09:00 AM - 09:15 AM
+
+Recuerda que en body del endpoint te envian el timezone del usuario:
+
+```json
+{
+  "date": "2022-07-18",
+  "scheduleId": "62cd6b95f852bc242a318cbb",
+  "timezone": "America/Bogota" 👈
+}
+
+
+### 3. Validar espacios ya ocupados
 
 En mismo endpoint de `[POST] /schedules/check` debería hacerse un consulta a los **Appointments** para ver si un espacio ya esta ocupado, en caso de estar ocupado debería retonar el status como `off`.
 
