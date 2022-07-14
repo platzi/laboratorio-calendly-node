@@ -8,8 +8,8 @@ const Schedule = require('../src/database/entities/schedule.entity');
 const initSeedDB = require('../src/database/seeds/init.seed');
 
 const formatSlot = (slot) => {
-  const startTime = format(new Date(slot.startDate), 'HH:mm');
-  const endTime = format(new Date(slot.endDate), 'HH:mm');
+  const startTime = format(new Date(slot.start), 'HH:mm');
+  const endTime = format(new Date(slot.end), 'HH:mm');
   return `${startTime}-${endTime}`;
 };
 
