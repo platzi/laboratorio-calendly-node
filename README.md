@@ -4,7 +4,7 @@ En este proyecto debes incluir un nuevo endpoint que genere los espacios disponi
 
 - [Instalación](#instalación)
 - [Configuración](#configuración)
-- [Funcionalidades](#funcionalidades)
+- [El reto](#el-reto)
 - [Como enviar tu solución](#como-enviar-tu-solución)
 - [Licencia](#licencia)
 - [Credits](#credits)
@@ -53,26 +53,101 @@ Debería existir tres entidades:
 - Schedule: Colección de la disponibilidad de los usuarios
 - Appointment: Colección las citas agendadas.
 
-![diagram](https://i.imgur.com/ah02Rah.png)
 
-## Funcionalidades
+### Users
 
-La aplicación ya cuenta con endpoints para gestionar **Schedules** y **Users**, tu trabajo es crear los endpoints que cumplan los siguientes requerimientos.
+- _id: mongoID
+- name: string
+- email: string
+- password: string
+- avatar: string
 
-Tu tarea será desarrollar un nuevo endpoint que debería retornar los espacios disponibles según un  **Schedule**.
- 
-`[POST] /schedules/check`
+<details>
+  <summary>Ver ejemplo de Doc</summary>
+  
+  ```json
+  {
+    "_id": "62cef7720cd70c04826278e5",
+    "name":"Nicolas",
+    "email":"nico@mail.com",
+    "password":"changeme",
+    "avatar":"https://api.lorem.space/image/face?w=480&h=480&r=9297"
+  }
+  ```
+</details>
 
-Debe cumplir los siguientes requisitos:
+### Schedule
+
+- _id: mongoID
+- title: string
+- description: string
+- duration: number
+- margin: number
+- timezone: string
+- availability: []
+- user: ref
+
+<details>
+  <summary>Ver ejemplo de Doc</summary>
+  
+  ```json
+  {
+    "_id": "62cd6b95f852bc242a318cba",
+    "title": "Soporte",
+    "description": "Un espacio para hablar sobre la experiencia con el sistema.",
+    "duration": 15,
+    "margin": 5,
+    "timezone": "America/La_Paz",
+    "availability": [
+      {
+        "day": "monday",
+        "intervals": [
+          {
+            "startTime": "09:00",
+            "endTime": "10:15",
+          },
+          {
+            "startTime": "20:00",
+            "endTime": "21:00",
+          }
+        ],
+      },
+      {
+        "day": "friday",
+        "intervals": [
+          {
+            "startTime": "13:00",
+            "endTime": "14:00",
+          },
+        ],
+      }
+    ],
+    "user": "62cd65afd0953f4adef923b3"
+  }
+  ```
+</details>
+
+### Appointment
+
+- _id: mongoID
+- note: string
+- email: string
+- startDate: Date
+- endDate: Dte
+- user: ref
+
+## El reto
+
+La aplicación ya cuenta con endpoints para gestionar **Schedules**, **Users** y **Appointments**, tu reto es crear el endpoint `[POST] /schedules/check` que debería retornar los espacios disponibles según un  **Schedule**, debe cumplir los siguientes requisitos:
 
 ### 1. Generar los espacios disponibles dado un Schedule
 
 Por ejemplo, así se vería el **Schedule** de un usuario con espacios de 15 min **(duration)** y con espacio entre reunión a reunión de  5 min **(margin)** con disponibilidad de la siguiente manera:
 
-- Los lunes de 9 am a 10:15 am y de 8 pm a 9 pm
-- Los viernes un espacio entre 1 pm a 2 pm
+- Los lunes de 9 am hasta 10:15 am y de 8 pm hasta 9 pm
+- Los viernes un espacio entre 1 pm hasta 2 pm
 
-Quiere decir que si un usuario quiere seleccionar uno de esos espacios para el lunes, las disponibilidades deberían ser las siguientes:
+Quiere decir que si un usuario solicita ver espacios disponibles para el día lunes, las disponibilidades deberían ser las siguientes:
 
 - 09:00 AM - 09:15 AM
 - 09:20 AM - 09:35 AM
@@ -82,14 +157,14 @@ Quiere decir que si un usuario quiere seleccionar uno de esos espacios para el l
 - 20:20 PM - 20:35 PM
 - 20:40 PM - 20:55 PM
 
-Y los viernes:
+Y para el viernes:
 
 - 13:00 PM - 13:15 PM
 - 13:20 PM - 13:35 PM
 - 13:40 PM - 13:55 PM
 
 
-El documento del **Schedule** anterior sería algo así:
+El documento del **Schedule** anterior sería así:
 
 ```json
 {
@@ -124,16 +199,16 @@ El documento del **Schedule** anterior sería algo así:
     }
   ],
   "user": "62cd65afd0953f4adef923b3"
-},
+}
 ```
 
 #### Input
 
 Este endpoint debe recibir los siguientes paramentros de entrada:
 
-- date: string
-- scheduleId: string
-- timezone: string 👈 este corresponde al timezone del usuario
+- date: string => La fecha para la cual se quiere revisar disponibilidad
+- scheduleId: string => El id del **Schedule**
+- timezone: string => El timezone del usuario
 
 Ejemplo:
 
@@ -189,16 +264,16 @@ Ejemplo:
 
 Llego la hora de ser una empresa global y soportar [Timezones](https://www.monkeyuser.com/assets/images/2018/85-going-global.png)
 
-Otro punto muy importante es el soporte de diferentes [timezones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), el sistema debe soportar que cada **Schedule** tenga un timezone configurado y que si el usuario hace la solicitud desde otra timezone el sistema "traducir" los espacios a la timezone del usuario, por ejemplo:
+El sistema debe soportar que cada **Schedule** tenga un timezone configurado y que si el usuario hace la solicitud desde otro timezone el sistema debería "traducir" los espacios a la timezone del usuario, por ejemplo:
 
-Para un **Schedule** con disponibilidad lunes de 9 am a 10:15 am, con duration de 15min y margin de 5min con timezone `America/La_Paz`, se debería responder la siguiente disponibilidad:
+Para un **Schedule** con disponibilidad lunes de 9 am hasta 10:15 am, con **duration** de 15min, **margin** de 5min y **timezone** `America/La_Paz`, se debería responder la siguiente disponibilidad:
 
 - 09:00 AM - 09:15 AM
 - 09:20 AM - 09:35 AM
 - 09:40 AM - 09:55 AM
 - 10:00 AM - 10:15 AM
 
-Pero si el usuario desde donde se envio el request tiene un timezone por ejemplo de `America/Bogota`, se debería responder la siguiente disponibilidad:
+Pero si el usuario desde donde se envio el request tiene un timezone diferente por ejemplo `America/Bogota`, se debería responder la siguiente disponibilidad:
 
 - 08:00 AM - 08:15 AM
 - 08:20 AM - 08:35 AM
@@ -217,11 +292,11 @@ Recuerda que en body del endpoint te envían el timezone del usuario:
 
 ### 3. Validar espacios ya ocupados
 
-En mismo endpoint de `[POST] /schedules/check` debería hacerse un consulta a los **Appointments** para ver si un espacio ya esta ocupado, en caso de estar ocupado debería retonar el status como `off`.
+En endpoint debería mostrar el `off` los espacios que no estan disponibles, por ende debería hacerse un consulta de los **Appointments** para ver si un espacio ya esta ocupado, en caso de estar ocupado debería retonar el status como `off`.
 
 Ejemplo:
 
-´´´json
+```json
 [
   {
     "startDate":"2022-07-18T14:00:00.000Z",
@@ -249,7 +324,7 @@ Ejemplo:
     "status":"on"
   }
 ]
-´´´
+```
 
 ### Recursos
 
@@ -259,8 +334,8 @@ Para interactuar con la API puedes descargar el archivo de Postman o Insomnia.
 
 - El comando `npm run start` inicia el servidor de node en modo producción
 - El comando `npm run dev` inicia un servidor con livereload
-- El comando `npm run e2e` se corren pruebas e2e para verificiar el correcto funcionamiento de los endpoints.
-- El comando `npm run seed:init` corre un carga de datos inicial.
+- El comando `npm run e2e` se corren pruebas e2e para verificiar el correcto funcionamiento de los endpoints
+- El comando `npm run seed:init` corre un carga de datos inicial
 
 ## Como enviar tu solución
 

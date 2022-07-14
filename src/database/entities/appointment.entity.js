@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const scheduleSchema = new mongoose.Schema({
+const appointmentSchema = new mongoose.Schema({
   note: {
     type: String,
     trim: true,
@@ -22,6 +22,6 @@ const scheduleSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
 });
 
-const Appointment = mongoose.model('Appointments', scheduleSchema);
+const Appointment = mongoose.model('Appointments', appointmentSchema);
 
 module.exports = Appointment;
