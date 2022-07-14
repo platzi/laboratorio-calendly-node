@@ -14,6 +14,7 @@ En este proyecto debes incluir un nuevo endpoint que genere los espacios disponi
 1. Hacer fork de este proyecto en tu espacio personal
 1. Clonar el repositorio desde tu espacio personal en tu computadora
 1. Instalar dependencias, con el comando `npm install`
+1. TODO: crear los archivos .env
 1. Iniciar mongo con Docker, con el comando `docker-compose up mongo -d`
 1. Cargar datos iniciales, con el comando `npm run seed:init`
 1. Comprobar ambiente de desarrollo, con el comando `npm run dev`
@@ -53,10 +54,9 @@ Debería existir tres entidades:
 - Schedule: Colección de la disponibilidad de los usuarios
 - Appointment: Colección las citas agendadas.
 
-
 ### Users
 
-- _id: mongoID
+- \_id: mongoID
 - name: string
 - email: string
 - password: string
@@ -78,7 +78,7 @@ Debería existir tres entidades:
 
 ### Schedule
 
-- _id: mongoID
+- \_id: mongoID
 - title: string
 - description: string
 - duration: number
@@ -129,7 +129,7 @@ Debería existir tres entidades:
 
 ### Appointment
 
-- _id: mongoID
+- \_id: mongoID
 - note: string
 - email: string
 - startDate: Date
@@ -138,7 +138,7 @@ Debería existir tres entidades:
 
 ## El reto
 
-La aplicación ya cuenta con endpoints para gestionar **Schedules**, **Users** y **Appointments**, tu reto es crear el endpoint `[POST] /check-availability` que debería retornar los espacios disponibles según un  **Schedule**, debe cumplir los siguientes requisitos:
+La aplicación ya cuenta con endpoints para gestionar **Schedules**, **Users** y **Appointments**, tu reto es crear el endpoint `[POST] /availability` que debería retornar los espacios disponibles según un  **Schedule**, debe cumplir los siguientes requisitos:
 
 ### 1. Generar los espacios disponibles dado un Schedule
 
@@ -163,7 +163,6 @@ Y para el viernes:
 - 13:20 PM - 13:35 PM
 - 13:40 PM - 13:55 PM
 
-
 El documento del **Schedule** anterior sería así:
 
 ```json
@@ -180,22 +179,22 @@ El documento del **Schedule** anterior sería así:
       "intervals": [
         {
           "startTime": "09:00",
-          "endTime": "10:15",
+          "endTime": "10:15"
         },
         {
           "startTime": "20:00",
-          "endTime": "21:00",
+          "endTime": "21:00"
         }
-      ],
+      ]
     },
     {
       "day": "friday",
       "intervals": [
         {
           "startTime": "13:00",
-          "endTime": "14:00",
-        },
-      ],
+          "endTime": "14:00"
+        }
+      ]
     }
   ],
   "user": "62cd65afd0953f4adef923b3"
@@ -233,36 +232,38 @@ Ejemplo:
 ```json
 [
   {
-    "startDate":"2022-07-18T14:00:00.000Z",
-    "endDate":"2022-07-18T14:20:00.000Z",
-    "status":"on"
+    "startDate": "2022-07-18T14:00:00.000Z",
+    "endDate": "2022-07-18T14:20:00.000Z",
+    "status": "on"
   },
   {
-    "startDate":"2022-07-18T14:25:00.000Z",
-    "endDate":"2022-07-18T14:45:00.000Z",
-    "status":"on"
+    "startDate": "2022-07-18T14:25:00.000Z",
+    "endDate": "2022-07-18T14:45:00.000Z",
+    "status": "on"
   },
   {
-    "startDate":"2022-07-18T14:50:00.000Z",
-    "endDate":"2022-07-18T15:10:00.000Z",
-    "status":"off"
+    "startDate": "2022-07-18T14:50:00.000Z",
+    "endDate": "2022-07-18T15:10:00.000Z",
+    "status": "off"
   },
   {
-    "startDate":"2022-07-18T15:15:00.000Z",
-    "endDate":"2022-07-18T15:35:00.000Z",
-    "status":"off"
+    "startDate": "2022-07-18T15:15:00.000Z",
+    "endDate": "2022-07-18T15:35:00.000Z",
+    "status": "off"
   },
   {
-    "startDate":"2022-07-18T15:40:00.000Z",
-    "endDate":"2022-07-18T16:00:00.000Z",
-    "status":"on"
+    "startDate": "2022-07-18T15:40:00.000Z",
+    "endDate": "2022-07-18T16:00:00.000Z",
+    "status": "on"
   }
 ]
 ```
 
+### 3 TODO VALIDATE DTOS
+
 ### 2. Soporte de Timezones
 
-Llego la hora de ser una empresa global y soportar [Timezones](https://www.monkeyuser.com/assets/images/2018/85-going-global.png)
+Llego la hora de ser una empresa global y soportar [Timezones](https://www.monkeyuser.com/assets/images/2018/85-going-global.png), TODO: endpoint list
 
 El sistema debe soportar que cada **Schedule** tenga un timezone configurado y que si el usuario hace la solicitud desde otro timezone el sistema debería "traducir" los espacios a la timezone del usuario, por ejemplo:
 
@@ -299,29 +300,29 @@ Ejemplo:
 ```json
 [
   {
-    "startDate":"2022-07-18T14:00:00.000Z",
-    "endDate":"2022-07-18T14:20:00.000Z",
-    "status":"on"
+    "startDate": "2022-07-18T14:00:00.000Z",
+    "endDate": "2022-07-18T14:20:00.000Z",
+    "status": "on"
   },
   {
-    "startDate":"2022-07-18T14:25:00.000Z",
-    "endDate":"2022-07-18T14:45:00.000Z",
-    "status":"on"
+    "startDate": "2022-07-18T14:25:00.000Z",
+    "endDate": "2022-07-18T14:45:00.000Z",
+    "status": "on"
   },
   {
-    "startDate":"2022-07-18T14:50:00.000Z",
-    "endDate":"2022-07-18T15:10:00.000Z",
-    "status":"off"
+    "startDate": "2022-07-18T14:50:00.000Z",
+    "endDate": "2022-07-18T15:10:00.000Z",
+    "status": "off"
   },
   {
-    "startDate":"2022-07-18T15:15:00.000Z",
-    "endDate":"2022-07-18T15:35:00.000Z",
-    "status":"off"
+    "startDate": "2022-07-18T15:15:00.000Z",
+    "endDate": "2022-07-18T15:35:00.000Z",
+    "status": "off"
   },
   {
-    "startDate":"2022-07-18T15:40:00.000Z",
-    "endDate":"2022-07-18T16:00:00.000Z",
-    "status":"on"
+    "startDate": "2022-07-18T15:40:00.000Z",
+    "endDate": "2022-07-18T16:00:00.000Z",
+    "status": "on"
   }
 ]
 ```

@@ -1,11 +1,12 @@
 const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
 
-const id = Joi.string();
+const id = Joi.objectId();
 const note = Joi.string().min(20);
 const email = Joi.string().email();
 const startDate = Joi.date().iso();
 const endDate = Joi.date().iso();
-const userId = Joi.string();
+const userId = Joi.objectId();
 
 const createAppointmentDto = Joi.object({
   note: note.required(),

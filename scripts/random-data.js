@@ -4,7 +4,6 @@ const randomSeedDB = require('./../src/database/seeds/random.seed');
 (async () => {
   try {
     await randomSeedDB();
-    console.log('randomSeedDB run successfully!');
   } catch (error) {
     console.error(error);
   }
