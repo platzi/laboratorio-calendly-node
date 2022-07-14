@@ -28,10 +28,3 @@ jobs:
         run: npm ci
       - name: run e2e
         run: npm run e2e:ci
-        env:
-          MONGO_USER: root
-          MONGO_PASSWORD: root
-          MONGO_DB: calendly
-          MONGO_HOST: mongo-e2e
-          MONGO_PORT: 27018
-          NODE_ENV: 'e2e'
