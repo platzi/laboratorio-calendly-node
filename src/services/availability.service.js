@@ -11,7 +11,7 @@ class AvailabilityService {
     }
     const day = this.getDay(date);
     const availability = this.getAvailabilityByDay(schedule.availability, day);
-    if (availability === null) {
+    if (availability === undefined) {
       return [];
     }
     const promises = availability.intervals.map(async (interval) => {
