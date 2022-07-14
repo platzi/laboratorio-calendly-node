@@ -32,6 +32,10 @@ const initSeedDB = async () => {
               startTime: '10:00',
               endTime: '12:00',
             },
+            {
+              startTime: '20:00',
+              endTime: '21:00',
+            },
           ],
         },
         {

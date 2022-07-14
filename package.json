@@ -7,7 +7,7 @@
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
     "seed:init": "node scripts/init-data.js",
-    "e2e": "NODE_ENV=e2e jest --verbose --runInBand",
+    "e2e": "NODE_ENV=e2e jest --verbose --runInBand--forceExit",
     "lint": "eslint"
   },
   "keywords": [],
