@@ -13,6 +13,7 @@ const formatSlot = (slot) => {
 
 // TODO: E2E DTOS 400 bad request
 // TODO: schedule not found
+// TODO: return [] when date is not in availi..
 
 describe('Check slots with the same timezone', () => {
   const app = createApp();
@@ -26,9 +27,9 @@ describe('Check slots with the same timezone', () => {
   });
 
   describe('Validate dtos', () => {
-    test('should return a 404 with empty body', async () => {
+    test('should return a 400 (Bad Request) with empty body', async () => {
       const { statusCode } = await api.post('/api/v1/availability').send({});
-      expect(statusCode).toEqual(404);
+      expect(statusCode).toEqual(400);
     });
     test('should return a 404 with invalid date', async () => {
       const { statusCode } = await api
@@ -38,7 +39,7 @@ describe('Check slots with the same timezone', () => {
           timezone: 'America/Mexico_City',
           scheduleId: '12345',
         });
-      expect(statusCode).toEqual(404);
+      expect(statusCode).toEqual(400);
     });
     test('should return a 404 with invalid timezone', async () => {
       const { statusCode } = await api
@@ -48,7 +49,7 @@ describe('Check slots with the same timezone', () => {
           timezone: 'bla',
           scheduleId: '12345',
         });
-      expect(statusCode).toEqual(404);
+      expect(statusCode).toEqual(400);
     });
     test('should return a 404 with invalid scheduleId', async () => {
       const { statusCode } = await api
@@ -58,7 +59,7 @@ describe('Check slots with the same timezone', () => {
           timezone: 'America/Mexico_City',
           scheduleId: '1',
         });
-      expect(statusCode).toEqual(404);
+      expect(statusCode).toEqual(400);
     });
   });
 
@@ -67,7 +68,7 @@ describe('Check slots with the same timezone', () => {
     const valeSchedule = await Schedule.findOne({ user: valeUser._id });
 
     const data = {
-      date: format(new Date(2022, 6, 11), 'yyyy-MM-dd'),
+      date: '2022-07-18',
       scheduleId: valeSchedule._id,
       timezone: valeSchedule.timezone,
     };
