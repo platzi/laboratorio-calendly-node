@@ -13,11 +13,10 @@ const formatSlot = (slot) => {
   return `${startTime}-${endTime}`;
 };
 
-// TODO: E2E DTOS 400 bad request
 // TODO: schedule not found
 // TODO: return [] when date is not in availi..
 
-describe('Check slots with the same timezone', () => {
+describe('Tests for availability', () => {
   const app = createApp();
   const server = app.listen(8000);
   const api = supertest(app);
@@ -28,12 +27,12 @@ describe('Check slots with the same timezone', () => {
     await initSeedDB();
   });
 
-  describe('Validate dtos', () => {
+  describe('Errors with wrong data', () => {
     test('should return a 400 (Bad Request) with empty body', async () => {
       const { statusCode } = await api.post('/api/v1/availability').send({});
       expect(statusCode).toEqual(400);
     });
-    test('should return a 404 with invalid date', async () => {
+    test('should return a 400 (Bad Request) with invalid date', async () => {
       const { statusCode } = await api.post('/api/v1/availability').send({
         date: 'bla',
         timezone: 'America/Mexico_City',
@@ -41,7 +40,7 @@ describe('Check slots with the same timezone', () => {
       });
       expect(statusCode).toEqual(400);
     });
-    test('should return a 404 with invalid timezone', async () => {
+    test('should return a 400 (Bad Request) with invalid timezone', async () => {
       const { statusCode } = await api.post('/api/v1/availability').send({
         date: '2022-07-18',
         timezone: 'bla',
@@ -49,7 +48,7 @@ describe('Check slots with the same timezone', () => {
       });
       expect(statusCode).toEqual(400);
     });
-    test('should return a 404 with invalid scheduleId', async () => {
+    test('should return a 400 (Bad Request) with invalid scheduleId', async () => {
       const { statusCode } = await api.post('/api/v1/availability').send({
         date: '2022-07-18',
         timezone: 'America/Mexico_City',
@@ -57,9 +56,17 @@ describe('Check slots with the same timezone', () => {
       });
       expect(statusCode).toEqual(400);
     });
+    test('should return a 404 (Not Found) with scheduleId', async () => {
+      const { statusCode } = await api.post('/api/v1/availability').send({
+        date: '2022-07-18',
+        timezone: 'America/Mexico_City',
+        scheduleId: '62cf9d5f4f3743814e3d1a2e',
+      });
+      expect(statusCode).toEqual(404);
+    });
   });
 
-  describe('Generate slots', () => {
+  describe('Generating slots', () => {
     test('should return right slots', async () => {
       const valeUser = await User.findOne({ email: 'vale@mail.com' });
       const valeSchedule = await Schedule.findOne({ user: valeUser._id });
