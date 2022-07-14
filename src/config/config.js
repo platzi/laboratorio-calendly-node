@@ -1,7 +1,12 @@
-const env = process.env.NODE_ENV || 'dev';
+let env = process.env.NODE_ENV || 'dev';
+const CI = process.env.CI || false;
+if (CI) {
+  env = 'ci';
+}
 const envs = {
   'dev': 'dev.env',
-  'e2e': 'e2e.env'
+  'e2e': 'e2e.env',
+  'ci': ''
 }
 
 require('dotenv').config({

@@ -267,6 +267,12 @@ Ejemplo:
 
 ### 2. Validación de datos
 
+- Debería retornar 400 (Bad Request) si se envía un body vacio
+- Debería retornar 400 (Bad Request) si se envía una fecha inválida
+- Debería retornar 400 (Bad Request) si se envía un timezone inválida
+- Debería retornar 400 (Bad Request) si se envía un scheduleId que no cumple con el formato de un ID de mongo
+- Debería retornar 404 (Not Found) si se envía un scheduleId válido, pero no existe el **Schedule**
+
 ### 3. Soporte de Timezones
 
 Llego la hora de ser una empresa global y soportar [Timezones](https://www.monkeyuser.com/assets/images/2018/85-going-global.png), TODO: endpoint list
