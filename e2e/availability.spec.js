@@ -225,7 +225,7 @@ describe('Tests for availability', () => {
   });
 
   describe('Booking', () => {
-    test('should return slots with the same timezone', async () => {
+    test('should return a slot in off', async () => {
       const nicoUser = await User.findOne({ email: 'nico@mail.com' });
       const nicoSchedule = await Schedule.findOne({ user: nicoUser._id });
 
