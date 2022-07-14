@@ -67,17 +67,34 @@ Este endpoint debería retornar los espacios disponibles según un  **Schedule**
 
 Por ejemplo, así se vería el **Schedule** de un usuario con espacios de 20 min **(duration)** con espacio entre reunión a reunión de  5 min **(margin)** con disponibilidad de la siguiente manera:
 
-- Los lunes de 10 am a 12 pm y de 8 pm a 10 pm
+- Los lunes de 9 am a 10:15 am y de 8 pm a 9 pm
 - Los viernes un espacio entre 1 pm a 2 pm
 
-**Schedule**
+Quiere decir que si un usuario quiere seleccionar uno de esos espacios para el lunes, las disponibilidades deberían ser las siguientes:
+
+- 09:00 AM - 09:15 AM
+- 09:20 AM - 09:35 AM
+- 09:40 AM - 09:55 AM
+- 10:00 AM - 10:15 AM
+- 20:00 PM - 20:15 PM
+- 20:20 PM - 20:35 PM
+- 20:40 PM - 20:55 PM
+
+Y los viernes:
+
+- 13:00 PM - 13:15 PM
+- 13:20 PM - 13:35 PM
+- 13:40 PM - 13:55 PM
+
+
+El documento del **Schedule** anterior sería algo así:
 
 ```json
 {
   "_id": "62cd6b95f852bc242a318cba",
   "title": "Soporte",
   "description": "Un espacio para hablar sobre la experiencia con el sistema.",
-  "duration": 20,
+  "duration": 15,
   "margin": 5,
   "timezone": "America/La_Paz",
   "availability": [
@@ -85,12 +102,12 @@ Por ejemplo, así se vería el **Schedule** de un usuario con espacios de 20 m
       "day": "monday",
       "intervals": [
         {
-          "startTime": "10:00",
-          "endTime": "12:00",
+          "startTime": "09:00",
+          "endTime": "10:15",
         },
         {
           "startTime": "20:00",
-          "endTime": "22:00",
+          "endTime": "21:00",
         }
       ],
     },
@@ -107,24 +124,6 @@ Por ejemplo, así se vería el **Schedule** de un usuario con espacios de 20 m
   "user": "62cd65afd0953f4adef923b3"
 },
 ```
-
-Quiere decir que si un usuario quiere seleccionar uno de esos espacios para el lunes, las disponibilidades deberían ser las siguientes:
-
-- 10:00 AM - 10:20 AM
-- 10:25 AM - 10:45 AM
-- 10:50 AM - 11:10 AM
-- 11:15 AM - 11:35 AM
-- 11:40 AM - 12:00 PM
-- 20:00 PM - 20:20 PM
-- 20:25 PM - 20:45 PM
-- 20:50 PM - 21:10 PM
-- 21:15 PM - 21:35 PM
-- 21:40 PM - 22:00 PM
-
-Y los viernes:
-
-- 13:00 PM - 13:20 PM
-- 13:25 PM - 13:45 PM
 
 
 #### Input

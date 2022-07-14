@@ -87,7 +87,7 @@ const initSeedDB = async () => {
       timezone: 'America/La_Paz',
       availability: [
         {
-          day: 'monday',
+          day: 'tuesday',
           intervals: [
             {
               startTime: '10:00',
@@ -107,6 +107,28 @@ const initSeedDB = async () => {
     });
     await valeUser.save();
 
+    const valeSchedule = new Schedule({
+      user: valeUser._id,
+      title: 'Soporte',
+      description:
+        'Un espacio para hablar sobre la experiencia con el sistema.',
+      duration: 15,
+      margin: 5,
+      timezone: 'America/Bogota',
+      availability: [
+        {
+          day: 'monday',
+          intervals: [
+            {
+              startTime: '09:00',
+              endTime: '10:00',
+            },
+          ],
+        },
+      ],
+    });
+    await valeSchedule.save();
+
     const santiUser = new User({
       name: 'Santiago',
       email: 'santi@mail.com',
@@ -114,6 +136,28 @@ const initSeedDB = async () => {
       avatar: 'https://api.lorem.space/image/face?w=480&h=480&r=9297',
     });
     await santiUser.save();
+
+    const santiSchedule = new Schedule({
+      user: santiUser._id,
+      title: 'Soporte',
+      description:
+        'Un espacio para hablar sobre la experiencia con el sistema.',
+      duration: 15,
+      margin: 5,
+      timezone: 'America/Bogota',
+      availability: [
+        {
+          day: 'monday',
+          intervals: [
+            {
+              startTime: '09:00',
+              endTime: '10:15',
+            },
+          ],
+        },
+      ],
+    });
+    await santiSchedule.save();
   } catch (error) {
     console.error(error);
   }
