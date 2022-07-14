@@ -224,38 +224,38 @@ describe('Tests for availability', () => {
     });
   });
 
-  describe('Booking', () => {
-    test('should return a slot in off', async () => {
-      const nicoUser = await User.findOne({ email: 'nico@mail.com' });
-      const nicoSchedule = await Schedule.findOne({ user: nicoUser._id });
+  // describe('Booking', () => {
+  //   test('should return a slot in off', async () => {
+  //     const nicoUser = await User.findOne({ email: 'nico@mail.com' });
+  //     const nicoSchedule = await Schedule.findOne({ user: nicoUser._id });
 
-      const userTZ = nicoSchedule.timezone;
+  //     const userTZ = nicoSchedule.timezone;
 
-      const data = {
-        date: '2022-07-18',
-        scheduleId: nicoSchedule._id,
-        timezone: userTZ,
-      };
-      const response = await api.post('/api/v1/availability').send(data);
+  //     const data = {
+  //       date: '2022-07-18',
+  //       scheduleId: nicoSchedule._id,
+  //       timezone: userTZ,
+  //     };
+  //     const response = await api.post('/api/v1/availability').send(data);
 
-      expect(nicoSchedule.timezone).toEqual('America/La_Paz');
-      expect(userTZ).toEqual('America/La_Paz');
+  //     expect(nicoSchedule.timezone).toEqual('America/La_Paz');
+  //     expect(userTZ).toEqual('America/La_Paz');
 
-      const appointment = response.body[0];
+  //     const appointment = response.body[0];
 
-      const responseAppointment = await api.post('/api/v1/appointments').send({
-        userId: nicoUser._id,
-        startDate: new Date(appointment.start).toISOString(),
-        endDate: new Date(appointment.end).toISOString(),
-        note: 'bla bla bla bla bla bla bla',
-        email: 'nico@example.com'
-      });
-      expect(responseAppointment.status).toEqual(200);
+  //     const responseAppointment = await api.post('/api/v1/appointments').send({
+  //       userId: nicoUser._id,
+  //       startDate: new Date(appointment.start).toISOString(),
+  //       endDate: new Date(appointment.end).toISOString(),
+  //       note: 'bla bla bla bla bla bla bla',
+  //       email: 'nico@example.com'
+  //     });
+  //     expect(responseAppointment.status).toEqual(200);
 
-      const { body } = await api.post('/api/v1/availability').send(data);
-      expect(body[0].status).toEqual('off');
-    });
-  })
+  //     const { body } = await api.post('/api/v1/availability').send(data);
+  //     expect(body[0].status).toEqual('off');
+  //   });
+  // })
 
   afterEach(async () => {
     server.close();
