@@ -12,7 +12,7 @@ const initSeedDB = async () => {
       name: 'Nicolas',
       email: 'nico@mail.com',
       password: 'changeme',
-      avatar: 'https://api.lorem.space/image/face?w=480&h=480&r=9297',
+      avatar: `https://api.lorem.space/image/face?w=480&h=480&r=${Math.random()}`,
     });
     await nicoUser.save();
 
@@ -73,7 +73,7 @@ const initSeedDB = async () => {
       name: 'Zulema',
       email: 'zule@mail.com',
       password: 'changeme',
-      avatar: 'https://api.lorem.space/image/face?w=480&h=480&r=9297',
+      avatar: `https://api.lorem.space/image/face?w=480&h=480&r=${Math.random()}`,
     });
     await zuleUser.save();
 
@@ -103,7 +103,7 @@ const initSeedDB = async () => {
       name: 'Valentina',
       email: 'vale@mail.com',
       password: 'changeme',
-      avatar: 'https://api.lorem.space/image/face?w=480&h=480&r=9297',
+      avatar: `https://api.lorem.space/image/face?w=480&h=480&r=${Math.random()}`,
     });
     await valeUser.save();
 
@@ -133,7 +133,7 @@ const initSeedDB = async () => {
       name: 'Santiago',
       email: 'santi@mail.com',
       password: 'changeme',
-      avatar: 'https://api.lorem.space/image/face?w=480&h=480&r=9297',
+      avatar: `https://api.lorem.space/image/face?w=480&h=480&r=${Math.random()}`,
     });
     await santiUser.save();
 
