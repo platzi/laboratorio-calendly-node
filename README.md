@@ -155,7 +155,7 @@ Este endpoint debería retornar un array de objetos con los siguientes atributos
 
 Ejemplo:
 
-´´´json
+```json
 [
   {
     "startDate":"2022-07-18T14:00:00.000Z",
@@ -183,7 +183,7 @@ Ejemplo:
     "status":"on"
   }
 ]
-´´´
+```
 
 ### 2. Soporte de Timezones
 
