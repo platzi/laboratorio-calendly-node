@@ -16,7 +16,7 @@ jobs:
       mongo-e2e:
         image: mongo:4.4
         ports:
-          - 27018:27017
+          - 27017:27017
         env:
           MONGO_INITDB_ROOT_USERNAME: root
           MONGO_INITDB_ROOT_PASSWORD: root
