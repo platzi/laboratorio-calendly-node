@@ -338,6 +338,10 @@ Para interactuar con la API puedes descargar el archivo de Postman o Insomnia.
 - El comando `npm run e2e` se corren pruebas e2e para verificiar el correcto funcionamiento de los endpoints
 - El comando `npm run seed:init` corre un carga de datos inicial
 
+### Pruebas
+
+#TODO: docker-compose up mongo-e2e -d 
+
 ## Como enviar tu solución
 
 Debes de hacer un "Fork" de este proyecto, revolver los problemas y crear un Pull Request hacia este repositorio.
