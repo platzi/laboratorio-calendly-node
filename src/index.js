@@ -3,6 +3,6 @@ const createApp = require('./app');
 
 getConnection();
 const app = createApp();
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3002);
 
 module.exports = app;
